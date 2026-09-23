@@ -1,3 +1,5 @@
+import ReadBtn from "@/components/bookdetails/ReadBtn";
+import WishlistBtn from "@/components/bookdetails/WishlistBtn";
 import { IBook } from "@/types/card-types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -131,16 +133,9 @@ return (
 
 
           {/* Buttons */}
-          <div className="flex gap-4 mt-8">
-
-            <button className="btn btn-outline">
-              Read
-            </button>
-
-            <button className="btn btn-info text-white">
-              Wishlist
-            </button>
-
+         <div>
+            <ReadBtn book={book}/>
+            <WishlistBtn book={book}/>           
           </div>
 
         </div>
