@@ -91,11 +91,7 @@ const Navbar = () => {
             <li>
               <Link href="/listed-books">Listed Books</Link>
             </li>
-
-            <li>
-              <Link href="/pages-to-read">Pages to Read</Link>
-            </li>
-
+            
           </ul>
         </div>
 

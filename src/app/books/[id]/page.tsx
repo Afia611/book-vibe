@@ -41,7 +41,7 @@ return (
             alt={book.bookName}
             width={350}
             height={500}
-            className="max-h-[450px] w-auto object-contain"
+            className="max-h-450px w-auto object-contain"
           />
 
         </div>
@@ -67,18 +67,8 @@ return (
           <p className="py-4 font-medium">
             {book.category}
           </p>
-
+          
           <hr className="border-gray-200" />
-
-
-          {/* Review */}
-          <p className="text-gray-600 leading-7 my-5">
-            <span className="font-bold text-gray-900">
-              Review:{" "}
-            </span>
-
-            {book.review}
-          </p>
 
 
           {/* Tags */}
@@ -107,22 +97,11 @@ return (
 
             <div className="grid grid-cols-2">
               <span className="text-gray-500">
-                Number of Pages:
-              </span>
-
-              <span className="font-semibold">
-                {book.totalPages}
-              </span>
-            </div>
-
-
-            <div className="grid grid-cols-2">
-              <span className="text-gray-500">
                 Publisher:
               </span>
 
               <span className="font-semibold">
-                {book.publisher}
+                {book.author}
               </span>
             </div>
 
@@ -133,7 +112,7 @@ return (
               </span>
 
               <span className="font-semibold">
-                {book.yearOfPublishing}
+                {book.yearsOfPublishing}
               </span>
             </div>
 
