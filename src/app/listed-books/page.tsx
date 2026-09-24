@@ -3,7 +3,7 @@
 import BookCard from "@/components/shared/homepage/BookCard";
 import { BooksContext } from "@/context/BooksContext";
 import type { IBook } from "@/types/card-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const ListedBooks = () => {
   const context = useContext(BooksContext);
@@ -14,8 +14,25 @@ const ListedBooks = () => {
 
   const { readBooks, wishlist } = context;
 
-  console.log("Read books:", readBooks);
-  console.log("Wishlist:", wishlist);
+  const [sortBy, setSortBy] = useState<"rating" | "year">("rating");
+
+  // Sort function
+  const sortBooks = (books: IBook[]) => {
+    const sortedBooks = [...books];
+
+    if (sortBy === "rating") {
+      sortedBooks.sort((a, b) => b.rating - a.rating);
+    } else {
+      sortedBooks.sort(
+        (a, b) => b.yearsOfPublishing - a.yearsOfPublishing
+      );
+    }
+
+    return sortedBooks;
+  };
+
+  const sortedReadBooks = sortBooks(readBooks);
+  const sortedWishlist = sortBooks(wishlist);
 
   return (
     <div className="container mx-auto py-20 px-4">
@@ -24,6 +41,21 @@ const ListedBooks = () => {
         Listed Books
       </h1>
 
+      {/* Sort By */}
+      <div className="text-center my-8">
+        <select
+          value={sortBy}
+          onChange={(e) =>
+            setSortBy(e.target.value as "rating" | "year")
+          }
+          className="select select-success"
+        >
+          <option value="rating">Sort by Rating</option>
+          <option value="year">Sort by Publishing Year</option>
+        </select>
+      </div>
+
+      {/* Tabs */}
       <div className="tabs tabs-border mt-8">
 
         {/* Read Books Tab */}
@@ -37,10 +69,10 @@ const ListedBooks = () => {
 
         <div className="tab-content border-base-300 bg-base-100 p-10">
 
-          {readBooks.length > 0 ? (
+          {sortedReadBooks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-              {readBooks.map((book: IBook) => (
+              {sortedReadBooks.map((book: IBook) => (
                 <BookCard
                   key={book.bookId}
                   book={book}
@@ -56,7 +88,6 @@ const ListedBooks = () => {
 
         </div>
 
-
         {/* Wishlist Tab */}
         <input
           type="radio"
@@ -67,10 +98,10 @@ const ListedBooks = () => {
 
         <div className="tab-content border-base-300 bg-base-100 p-10">
 
-          {wishlist.length > 0 ? (
+          {sortedWishlist.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-              {wishlist.map((book: IBook) => (
+              {sortedWishlist.map((book: IBook) => (
                 <BookCard
                   key={book.bookId}
                   book={book}
@@ -87,7 +118,6 @@ const ListedBooks = () => {
         </div>
 
       </div>
-
     </div>
   );
 };
