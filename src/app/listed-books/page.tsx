@@ -27,7 +27,7 @@ const ListedBooks = () => {
 );
     } else {
       sortedBooks.sort(
-        (a, b) => b.yearsOfPublishing - a.yearsOfPublishing
+        (a, b) => b.yearOfPublishing - a.yearOfPublishing
       );
     }
 

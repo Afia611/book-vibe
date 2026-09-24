@@ -113,7 +113,7 @@ return (
               </span>
 
               <span className="font-semibold">
-                {book.yearsOfPublishing}
+                {book.yearOfPublishing}
               </span>
             </div>
 
