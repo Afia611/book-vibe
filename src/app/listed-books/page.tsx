@@ -14,7 +14,7 @@ const ListedBooks = () => {
 
   const { readBooks, wishlist } = context;
 
-  const [sortBy, setSortBy] = useState<"rating" | "year">("rating");
+  const [sortBy, setSortBy] = useState<"rating" | "year"| "pages">("rating");
 
   // Sort function
   const sortBooks = (books: IBook[]) => {
@@ -22,6 +22,9 @@ const ListedBooks = () => {
 
     if (sortBy === "rating") {
       sortedBooks.sort((a, b) => b.rating - a.rating);
+    } else if (sortBy === "pages") { 
+      sortedBooks.sort((a, b) => b.totalPages - a.totalPages
+);
     } else {
       sortedBooks.sort(
         (a, b) => b.yearsOfPublishing - a.yearsOfPublishing
@@ -50,8 +53,9 @@ const ListedBooks = () => {
           }
           className="select select-success"
         >
-          <option value="rating">Sort by Rating</option>
-          <option value="year">Sort by Publishing Year</option>
+          <option value="rating">Rating</option>
+          <option value="year">Publishing Year</option>
+          <option value="pages">Total Pages</option>
         </select>
       </div>
 

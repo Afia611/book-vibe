@@ -52,7 +52,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link href="/pages-to-read">Pages to Read</Link>
+                <Link href="/read-books">Pages to Read</Link>
               </li>
             </ul>
           </div>
@@ -91,7 +91,11 @@ const Navbar = () => {
             <li>
               <Link href="/listed-books">Listed Books</Link>
             </li>
-            
+
+            <li>
+              <Link href="/read-books">Pages to Read</Link>
+            </li>
+
           </ul>
         </div>
 

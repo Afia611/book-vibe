@@ -6,5 +6,8 @@ export interface IBook {
     category: string;
     rating: number;
     tags: string[];
-    yearsOfPublishing: number;
+    yearOfPublishing: number;
+    totalPages: number;
+    publisher: string;
+    
 };

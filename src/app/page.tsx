@@ -1,28 +1,13 @@
-"use client";
+import Banner from "@/components/shared/homepage/Banner";
+import Books from "@/components/shared/homepage/Books";
 
-import { BooksContext } from "@/context/BooksContext";
-import { useContext } from "react";
-
-const ListedBooks = () => {
-  const context = useContext(BooksContext);
-
-  if (!context) {
-    throw new Error("ListedBooks must be used inside BooksProvider");
-  }
-
-  const { readBooks, wishlist } = context;
-
-  console.log("Read books:", readBooks);
-  console.log("Wishlist:", wishlist);
-
+const HomePage = () => {
   return (
     <div>
-      <h1>Listed Books</h1>
-
-      <p>Read Books: {readBooks.length}</p>
-      <p>Wishlist: {wishlist.length}</p>
+      <Banner />
+      <Books />
     </div>
   );
 };
 
-export default ListedBooks;
+export default HomePage;

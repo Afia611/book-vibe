@@ -6,10 +6,10 @@ interface IBookCardProps {
 }
 
 const BookCard = ({ book }: IBookCardProps) => {
-  const {bookId, bookName, author, image, category, rating, tags,} 
+  const {bookId, bookName, author, publisher, image, category, rating, tags, yearOfPublishing} 
   = book;
 
-  return (
+  return ( 
     <div className="card bg-base-100 border border-gray-200 p-5 h-full hover:shadow-lg transition">
 
       {/* Image */}
@@ -41,6 +41,20 @@ const BookCard = ({ book }: IBookCardProps) => {
       {/* Author */}
       <p className="text-sm mt-3">
         By : {author}
+      </p>
+
+      <div className="border-t border-dashed border-gray-300 my-4"></div>
+
+      {/* Publisher */}
+      <p className="text-sm mt-3">
+        By : {publisher}
+      </p>
+
+      <div className="border-t border-dashed border-gray-300 my-4"></div>
+
+      {/* year of Publishing */}
+      <p className="text-sm mt-3">
+        Year: {yearOfPublishing}
       </p>
 
       <div className="border-t border-dashed border-gray-300 my-4"></div>
