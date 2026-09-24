@@ -10,6 +10,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  ResponsiveContainer,
   type BarShapeProps,
   type LabelProps,
 } from "recharts";
@@ -23,12 +24,12 @@ const ReadBooks = () => {
     "#00C49F",
     "#FFBB28",
     "#FF8042",
-    "red",
-    "pink",
-    "black",
+    "#8884D8",
+    "#FF69B4",
+    "#82CA9D",
   ];
 
-  // Get data from BooksContext
+  // Get read books dynamically from Context
   const context = useContext(BooksContext);
 
   if (!context) {
@@ -37,13 +38,13 @@ const ReadBooks = () => {
 
   const { readBooks } = context;
 
-  // Convert readBooks into chart data
+  // Create chart data dynamically
   const data = readBooks.map((book: IBook) => ({
     name: book.bookName,
     pages: Number(book.totalPages),
   }));
 
-  // Custom shape path
+  // Custom bar shape
   const getPath = (
     x: number,
     y: number,
@@ -64,7 +65,6 @@ const ReadBooks = () => {
     `;
   };
 
-  // Custom bar shape
   const TriangleBar = (props: BarShapeProps) => {
     const { x, y, width, height, index } = props;
 
@@ -85,12 +85,17 @@ const ReadBooks = () => {
     );
   };
 
-  // Custom label
+  // Dynamic label
   const CustomColorLabel = (props: LabelProps) => {
     const fill =
       colors[(props.index ?? 0) % colors.length];
 
-    return <Label {...props} fill={fill} />;
+    return (
+      <Label
+        {...props}
+        fill={fill}
+      />
+    );
   };
 
   return (
@@ -102,52 +107,70 @@ const ReadBooks = () => {
 
       {data.length > 0 ? (
 
-        <BarChart
-          style={{
-            width: "100%",
-            maxWidth: "900px",
-            height: "500px",
-            margin: "0 auto",
-          }}
-          responsive
-          data={data}
-          margin={{
-            top: 30,
-            right: 20,
-            left: 20,
-            bottom: 20,
-          }}
-        >
+        <div className="w-full max-w-5xl h-[500px] mx-auto">
 
-          <CartesianGrid strokeDasharray="3 3" />
-
-          <Tooltip />
-
-          <XAxis
-            dataKey="name"
-            interval={0}
-          />
-
-          <YAxis />
-
-          <Bar
-            dataKey="pages"
-            shape={TriangleBar}
-            activeBar
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
           >
-            <LabelList
-              content={CustomColorLabel}
-              position="top"
-            />
-          </Bar>
 
-        </BarChart>
+            <BarChart
+              data={data}
+              margin={{
+                top: 30,
+                right: 30,
+                left: 20,
+                bottom: 80,
+              }}
+            >
+
+              <CartesianGrid strokeDasharray="3 3" />
+
+              <Tooltip />
+
+              <XAxis
+                dataKey="name"
+                interval={0}
+                angle={-20}
+                textAnchor="end"
+                height={100}
+              />
+
+              <YAxis />
+
+              <Bar
+                dataKey="pages"
+                shape={TriangleBar}
+                activeBar
+              >
+
+                <LabelList
+                  dataKey="pages"
+                  content={CustomColorLabel}
+                  position="top"
+                />
+
+              </Bar>
+
+            </BarChart>
+
+          </ResponsiveContainer>
+
+        </div>
 
       ) : (
 
-        <p className="text-center text-lg font-semibold">
-          No read books to display.
-        </p>
+        <div className="text-center py-20">
+
+          <h2 className="text-2xl font-bold mb-3">
+            No Read Books Yet
+          </h2>
+
+          <p className="text-gray-500">
+            Click the Read button on a book to see it here.
+          </p>
+
+        </div>
 
       )}
 

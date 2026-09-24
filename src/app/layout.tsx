@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import BooksProvider from "@/context/BooksContext";
-import { ToastContainer } from "react-toastify";
+import Footer from "@/components/shared/Footer";
 
 
 const geistSans = Geist({
@@ -28,18 +28,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme= "light"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+            <body>
+
         <BooksProvider>
-        <Navbar />
-        {children}
-        
-        <h2 className= 'font-bold text-2xl bg-amber-300 py-2.5 text-emerald-950 text-center'> 
-          Footer 
-        </h2>
-        <ToastContainer/>
+
+          <div className="min-h-screen flex flex-col">
+
+            <Navbar />
+
+            <div className="flex-1">
+              {children}
+            </div>
+
+            <Footer />
+
+          </div>
 
         </BooksProvider>
-        </body>
+
+      </body>
     </html>
   );
 }
