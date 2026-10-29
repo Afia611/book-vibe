@@ -1,42 +1,57 @@
+
 import ReadBtn from "@/components/bookdetails/ReadBtn";
 import WishlistBtn from "@/components/bookdetails/WishlistBtn";
-import { IBook } from "@/types/card-types";
+import type { IBook } from "@/types/card-types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import fs from "node:fs/promises";
+import path from "node:path";
 
-interface IBookDetailsPageProps{
-    params: Promise<{
-        id: string;
-    }>;
+interface IBookDetailsPageProps {
+  params: Promise<{
+    id: string;
+  }>;
 }
 
-const getBooks = async (): Promise< IBook[]> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`,
- );
-  const data: IBook[] = await response.json();
+// Get books from the local JSON file
+const getBooks = async (): Promise<IBook[]> => {
+  const filePath = path.join(
+    process.cwd(),
+    "public",
+    "booksData.json"
+  );
+
+  const fileContents = await fs.readFile(
+    filePath,
+    "utf8"
+  );
+
+  const data: IBook[] = JSON.parse(fileContents);
+
   return data;
 };
 
-const BookDetailsPage = async ({params,}:IBookDetailsPageProps) =>{
-    const { id } = await params;
-    
-    const booksData= await getBooks();
-    
-    const book = booksData.find(
-      (book) => String(book.bookId) ===id
-    );
+const BookDetailsPage = async ({
+  params,
+}: IBookDetailsPageProps) => {
+  const { id } = await params;
 
-    if (!book){
-        notFound();
-    }
-return (
+  const booksData = await getBooks();
+
+  const book = booksData.find(
+    (book) => String(book.bookId) === id
+  );
+
+  if (!book) {
+    notFound();
+  }
+
+  return (
     <main className="container mx-auto px-4 py-12">
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
         {/* LEFT SIDE - BOOK IMAGE */}
         <div className="bg-base-200 rounded-2xl p-10 flex items-center justify-center min-h-500px">
-
           <Image
             src={book.image}
             alt={book.bookName}
@@ -44,9 +59,7 @@ return (
             height={500}
             className="max-h-450px w-auto object-contain"
           />
-
         </div>
-
 
         {/* RIGHT SIDE - BOOK INFORMATION */}
         <div>
@@ -63,18 +76,15 @@ return (
 
           <hr className="border-gray-200" />
 
-
           {/* Category */}
           <p className="py-4 font-medium">
             {book.category}
           </p>
-          
-          <hr className="border-gray-200" />
 
+          <hr className="border-gray-200" />
 
           {/* Tags */}
           <div className="flex items-center flex-wrap gap-3 mb-6">
-
             <span className="font-bold">
               Tag
             </span>
@@ -87,15 +97,14 @@ return (
                 #{tag}
               </span>
             ))}
-
           </div>
 
           <hr className="border-gray-200 mb-6" />
 
-
           {/* Book Information */}
           <div className="space-y-4 max-w-md">
 
+            {/* Publisher */}
             <div className="grid grid-cols-2">
               <span className="text-gray-500">
                 Publisher:
@@ -106,7 +115,7 @@ return (
               </span>
             </div>
 
-
+            {/* Year of Publishing */}
             <div className="grid grid-cols-2">
               <span className="text-gray-500">
                 Year of Publishing:
@@ -117,7 +126,7 @@ return (
               </span>
             </div>
 
-
+            {/* Rating */}
             <div className="grid grid-cols-2">
               <span className="text-gray-500">
                 Rating:
@@ -130,17 +139,14 @@ return (
 
           </div>
 
-
           {/* Buttons */}
-         <div>
-            <ReadBtn book={book}/>
-            <WishlistBtn book={book}/>           
+          <div>
+            <ReadBtn book={book} />
+            <WishlistBtn book={book} />
           </div>
 
         </div>
-
       </div>
-
     </main>
   );
 };
