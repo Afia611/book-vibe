@@ -4,7 +4,7 @@
 
 ## 🔗 Live Links
 
-- 🌐 **Live Website:** [Book Vibe](book-vibe-one-dun.vercel.app)
+- 🌐 **Live Website:** [Book Vibe](https://book-vibe-one-dun.vercel.app/)
 - 💻 **GitHub Repository:** [Afia611/book-vibe](https://github.com/Afia611/book-vibe)
 
 ## ✨ Key Features
